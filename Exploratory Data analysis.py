@@ -114,9 +114,16 @@ def main():
         if hasNumbers(word):
             all_words.remove(word)
 
+    # remove all tokenized words with punctuation
+    table = str.maketrans('', '', string.punctuation)
+    stripped = [w.translate(table) for w in all_words]
+    # remove remaining tokens that are not alphabetic
+    words = [word for word in stripped if word.isalpha()]
+
     # Count the number of unique words appeared
-    counts = collections.Counter(all_words)
+    counts = collections.Counter(set(words))
     # counts.most_common(15)
+
 
     print("The total number of distinct words (vocabulary) is %s" % len(counts))
     print("The average number of characters per tweet is " +
@@ -145,11 +152,11 @@ def main():
           str(round(sum(tweets_df['Token_Character_SD']) / len(tweets_df['Token_Character_SD']), 1)))
 
     # Top 10 most frequent words (types) in the vocabulary
-    top_10_words = counts.most_common(10)
+    top_10_words = collections.Counter(words).most_common(10)
+    print("The total number of tokens corresponding to the top 10 most frequent words (types) in the vocabulary is ",
+          top_10_words)
 
-    # Get total number of tokens corresponding to top 10 most frequent words (types) in the vocabulary
-    list_of_top_words = [i[0] for i in top_10_words]
-    tweets_with_top_10 = tweets_df[~tweets_df['clean_text'].isin(list_of_top_words)]
+    print("The token/type ratio in the dataset is ", tweets_df['token count'].sum(axis=0)/len(counts))
 
     tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True, encoding='utf-8')
 
