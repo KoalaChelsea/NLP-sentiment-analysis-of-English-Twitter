@@ -5,6 +5,8 @@ import string
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 import itertools
+import collections
+
 
 # clean tweet to help with statistics
 def processTweet(tweet):
@@ -40,8 +42,12 @@ def processTweet(tweet):
     return tweet
 
 
-def main():
+# Check if a string has a number
+def hasNumbers(inputString):
+    return any(char.isdigit() for char in inputString)
 
+
+def main():
     # load input data line by line with utf8
     with open('data/Dev/INPUT.txt', encoding='utf-8') as f:
         lines = f.readlines()
@@ -74,7 +80,79 @@ def main():
     tweets_df['clean_text'] = tweets_df['tweet_content'].apply(processTweet)
     tweets_df['token'] = tweets_df['clean_text'].apply(TweetTokenizer().tokenize)
     tweets_df['token count'] = tweets_df['token'].apply(len)
+
+    # write all cleaned tweets into one text
+    tweets_list_cleaned = tweets_df['clean_text'].tolist()
+    # split/tokenize all words
+    words_in_tweet = [tweet.lower().split() for tweet in tweets_list_cleaned]
+
+    # Count number of characters and words in each tweet
+    tweet_character_count = []
+    tweet_word_count = []
+    for tweet in tweets_list_cleaned:
+        # count characters
+        char_count = len(tweet)
+        tweet_character_count.append(char_count)
+
+        # Count # of words
+        temp_tweet = tweet
+        # drop anything that is not a word from the string
+        regex = re.compile('[^a-zA-Z]')
+        temp_tweet = regex.sub(' ', temp_tweet)
+
+        tweet_word_count.append(len(temp_tweet.split()))
+
+    # add character count and word count to master tweets_df
+    tweets_df['Character_Count'] = tweet_character_count
+    tweets_df['Word_Count'] = tweet_word_count
+
+    # flatten the list to one massive string
+    all_words = [item for sublist in words_in_tweet for item in sublist]
+
+    # remove all tokenized words with values
+    for word in all_words:
+        if hasNumbers(word):
+            all_words.remove(word)
+
+    # Count the number of unique words appeared
+    counts = collections.Counter(all_words)
+    # counts.most_common(15)
+
+    print("The total number of distinct words (vocabulary) is %s" % len(counts))
+    print("The average number of characters per tweet is " +
+          str(round(sum(tweets_df['Character_Count'])/len(tweets_df['Character_Count']), 1)) +
+          " and the average number of words per tweet is " +
+          str(round(sum(tweets_df['Word_Count']) / len(tweets_df['Word_Count']), 1)))
+
+    # Count number of characters for each token for each tweet
+    tweets_token_list = tweets_df['token'].tolist()
+    token_character_count = []
+    for tokens in tweets_token_list:
+        count = 0
+        for token in tokens:
+            count += len(token)
+        token_character_count.append(count)
+    tweets_df['Token_Character_Count'] = token_character_count
+
+    # Calculate Standard Deviation for each tweet's tokens
+    token_character_average = sum(tweets_df['Token_Character_Count']) / len(tweets_df['Token_Character_Count'])
+    tweets_df['Token_Character_SD'] = (tweets_df['Token_Character_Count'] - token_character_average)**2
+
+    # The average number and standard deviation of characters per token
+    print("The average number of characters per token per tweet is " +
+          str(round(sum(tweets_df['Token_Character_Count']) / len(tweets_df['Token_Character_Count']), 1)) +
+          " and the average standard deviation per tweet's token is " +
+          str(round(sum(tweets_df['Token_Character_SD']) / len(tweets_df['Token_Character_SD']), 1)))
+
+    # Top 10 most frequent words (types) in the vocabulary
+    top_10_words = counts.most_common(10)
+
+    # Get total number of tokens corresponding to top 10 most frequent words (types) in the vocabulary
+    list_of_top_words = [i[0] for i in top_10_words]
+    tweets_with_top_10 = tweets_df[~tweets_df['clean_text'].isin(list_of_top_words)]
+
     tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True, encoding='utf-8')
+
 
 if __name__ == '__main__':
     main()
