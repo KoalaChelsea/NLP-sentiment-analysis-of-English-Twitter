@@ -1,41 +1,49 @@
 import pandas as pd
 import numpy as np
-import spacy
-from spacy.tokens import Token
-from spacy.tokenizer import Tokenizer
-from spacy.matcher import Matcher
-from spacy.lang.tokenizer_exceptions import URL_PATTERN
-from spacy.util import compile_prefix_regex, compile_infix_regex, compile_suffix_regex
 import re
 import string
 from nltk.tokenize import TweetTokenizer
-from nltk.corpus import words
+from nltk.corpus import stopwords
 import itertools
 
 # clean tweet to help with statistics
 def processTweet(tweet):
-    # remove stock market tickers like $GE
-    tweet = re.sub(r'\$\w*', '', tweet)
-    # convert @username to AT_USER
-    tweet = re.sub('@[^\s]+', '', tweet)
+    # Emoji patterns
+    emoji_pattern = re.compile("["
+                               u"\U0001F600-\U0001F64F"  # emoticons
+                               u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                               u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                               u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                               u"\U00002702-\U000027B0"
+                               u"\U000024C2-\U0001F251"
+                               "]+", flags=re.UNICODE)
+
     # Remove url
     tweet = re.sub(r'((www\.[^\s]+)|(https?://[^\s]+))', '', tweet)
     # Remove hashtags
     # only removing the hash # sign from the word, we believe hashtags contains useful information
     tweet = re.sub(r'#', '', tweet)
-    # Remove HTML special entities (e.g. &amp;)
-    tweet = re.sub(r'\&\w*;', '', tweet)
-    # Remove Punctuation with a space for filter
-    tweet = re.sub(r'[' + string.punctuation.replace('@', '') + ']+', ' ', tweet)
-    # Remove characters beyond Basic Multilingual Plane (BMP) of Unicode:
-    tweet = ''.join(c for c in tweet if c <= '\uFFFF')
+    # Remove HTML special entities (e.g. amp;)
+    tweet = re.sub(r'\\w*;', '', tweet)
+    # remove stock market tickers like $GE
+    tweet = re.sub(r'\$\w*', '', tweet)
+    # convert @username to AT_USER
+    tweet = re.sub('@[^\s]+', '', tweet)
+    # remove mentions
+    tweet = re.sub(r':', '', tweet)
+    tweet = re.sub(r'‚Ä¶', '', tweet)
+    # replace consecutive non-ASCII characters with a space
+    tweet = re.sub(r'[^\x00-\x7F]+', ' ', tweet)
+    # remove emojis from tweet
+    tweet = emoji_pattern.sub(r'', tweet)
+
     return tweet
 
 
 def main():
 
     # load input data line by line with utf8
-    with open("data/Dev/INPUT.txt", encoding="utf8") as f:
+    with open('data/Dev/INPUT.txt', encoding='utf-8') as f:
         lines = f.readlines()
         # If there is no data in the file, don't go any further.
         if not len(lines):
@@ -66,31 +74,7 @@ def main():
     tweets_df['clean_text'] = tweets_df['tweet_content'].apply(processTweet)
     tweets_df['token'] = tweets_df['clean_text'].apply(TweetTokenizer().tokenize)
     tweets_df['token count'] = tweets_df['token'].apply(len)
-    tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True)
-
-
-    #tokens_all = []
-    #tokens_all.append(row for row in tweets_df['token'])
-    # tokens_all_list = list(itertools.chain.from_iterable(tokens_all))
-    #print(tokens_all)
-
-    #vocab = sorted(set(tokens_all))
-    #print(vocab)
-    #num_of_distinct_words = sum((int(token in words.words() == True)) for token in tokens_all)
-    #print("The total number of distinct words in all tweets %s " % num_of_distinct_words)
-
-    #words_all_df = pd.DataFrame(words_all)
-    #words_all_df.to_csv(r'data/words.csv', index=None, header=True)
-
-    # write all tweets into one text
-    #tweets_text = '\n'.join(tweets_list)
-
-    # spacy text
-    #doc_tweets = nlp(tweets_text)
-
-    # report length of tokens in all tweets
-    #print("The total number of words in all tweets %s " % len(doc_tweets))
-
+    tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True, encoding='utf-8')
 
 if __name__ == '__main__':
     main()
