@@ -12,18 +12,18 @@
 ### Task 1: Exploratory Data analysis
 
 #### Input data
-- [ ] The total number of tweets
-- [ ] The total number of characters
-- [ ] The total number of distinct words (vocabulary)
-- [ ] The average number of characters and words in each tweet
-- [ ] The average number and standard deviation of characters per token
-- [ ] The total number of tokens corresponding to the top 10 most frequent words (types) in the vocabulary
-- [ ] The token/type ratio in the dataset
+- [x] The total number of tweets
+- [x] The total number of characters
+- [x] The total number of distinct words (vocabulary)
+- [x] The average number of characters and words in each tweet
+- [x] The average number and standard deviation of characters per token
+- [x] The total number of tokens corresponding to the top 10 most frequent words (types) in the vocabulary
+- [x] The token/type ratio in the dataset
 - [ ] The total number of distinct n-grams (of words) that appear in the dataset for n=2,3,4,5.
 - [ ] The total number of distinct n-grams of characters that appear for n=2,3,4,5,6,7
 - [ ] Plot a token log frequency. Describe what this plot means and how to interpret it. Describe out it might help you understand coverage when training a model?
 
-#### Gold (Gold directory)
+#### Gold
 - [ ] What is the number of types that appear in the dev data but not the training data (OOV).?
 - [ ] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at dif ference sample sizes N. 
 - [ ] What is the class distribution of the training data set - how many negative, neutral, positive tweets?
