@@ -83,28 +83,28 @@ def main():
 
     # write all cleaned tweets into one text
     tweets_list_cleaned = tweets_df['clean_text'].tolist()
-    # split/tokenize all words
-    words_in_tweet = [tweet.lower().split() for tweet in tweets_list_cleaned]
 
     # Count number of characters and words in each tweet
     tweet_character_count = []
     tweet_word_count = []
     for tweet in tweets_list_cleaned:
-        # count characters
-        char_count = len(tweet)
-        tweet_character_count.append(char_count)
 
         # Count # of words
-        temp_tweet = tweet
+        temp_tweet = tweet.lower()
         # drop anything that is not a word from the string
-        regex = re.compile('[^a-zA-Z]')
-        temp_tweet = regex.sub(' ', temp_tweet)
-
+        temp_tweet = re.sub('[^a-zA-Z]+', ' ', temp_tweet)
         tweet_word_count.append(len(temp_tweet.split()))
+
+        # count characters
+        char_count = len(temp_tweet)
+        tweet_character_count.append(char_count)
 
     # add character count and word count to master tweets_df
     tweets_df['Character_Count'] = tweet_character_count
     tweets_df['Word_Count'] = tweet_word_count
+
+    # split/tokenize all words
+    words_in_tweet = [tweet.lower().split() for tweet in tweets_list_cleaned]
 
     # flatten the list to one massive string
     all_words = [item for sublist in words_in_tweet for item in sublist]
@@ -121,15 +121,13 @@ def main():
     words = [word for word in stripped if word.isalpha()]
 
     # Count the number of unique words appeared
-    counts = collections.Counter(set(words))
-    # counts.most_common(15)
+    word_counts = collections.Counter(set(words))
 
-
-    print("The total number of distinct words (vocabulary) is %s" % len(counts))
+    print("The total number of distinct words (vocabulary) is %s" % len(word_counts))
     print("The average number of characters per tweet is " +
-          str(round(sum(tweets_df['Character_Count'])/len(tweets_df['Character_Count']), 1)) +
+          str(round(tweets_df['Character_Count'].mean(axis=0), 1)) +
           " and the average number of words per tweet is " +
-          str(round(sum(tweets_df['Word_Count']) / len(tweets_df['Word_Count']), 1)))
+          str(round(tweets_df['Word_Count'].std(axis=0), 1)))
 
     # Count number of characters for each token for each tweet
     tweets_token_list = tweets_df['token'].tolist()
@@ -139,15 +137,15 @@ def main():
         for token in tokens:
             count += len(token)
         token_character_count.append(count)
-    tweets_df['Token_Character_Count'] = token_character_count
+    tweets_df['Token_Character_Count'] = token_character_count/tweets_df['token count']
 
     # Calculate Standard Deviation for each tweet's tokens
-    token_character_average = sum(tweets_df['Token_Character_Count']) / len(tweets_df['Token_Character_Count'])
-    tweets_df['Token_Character_SD'] = (tweets_df['Token_Character_Count'] - token_character_average)**2
+    token_character_average = tweets_df['Token_Character_Count'].mean(axis=0)
+    tweets_df['Token_Character_SD'] = tweets_df['Token_Character_Count'].std(axis=0)
 
     # The average number and standard deviation of characters per token
     print("The average number of characters per token per tweet is " +
-          str(round(sum(tweets_df['Token_Character_Count']) / len(tweets_df['Token_Character_Count']), 1)) +
+          str(round(token_character_average, 1)) +
           " and the average standard deviation per tweet's token is " +
           str(round(sum(tweets_df['Token_Character_SD']) / len(tweets_df['Token_Character_SD']), 1)))
 
@@ -156,8 +154,10 @@ def main():
     print("The total number of tokens corresponding to the top 10 most frequent words (types) in the vocabulary is ",
           top_10_words)
 
-    print("The token/type ratio in the dataset is ", tweets_df['token count'].sum(axis=0)/len(counts))
+    # Number of Token / Number of Vocab
+    print("The token/type ratio in the dataset is ", tweets_df['token count'].sum(axis=0) / len(word_counts))
 
+    # Write the data frame to csv for further reference
     tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True, encoding='utf-8')
 
 
