@@ -6,6 +6,8 @@ from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 import itertools
 import collections
+from nltk.util import ngrams
+import matplotlib.pyplot as plt
 
 
 # clean tweet to help with statistics
@@ -45,6 +47,40 @@ def processTweet(tweet):
 # Check if a string has a number
 def hasNumbers(inputString):
     return any(char.isdigit() for char in inputString)
+
+
+def count_ngrams_words(start, end, x): # start = 2, end = 6, x = tweets_df['clean_text']
+    for i in range(start, end):
+        l_ngrams = []
+        for s in x:
+            s = s.lower()
+            s = re.sub(r'[^a-zA-Z0-9\s]', ' ', s)
+            tokens = [token for token in s.split(" ") if token != ""]
+            l_ngrams = l_ngrams + list(ngrams(tokens, i))
+            len_ngrams = len(collections.Counter(set(l_ngrams)))
+        if i == 2:
+            print("the total number of distinct bigrams of words that appear is: ", len_ngrams)
+        elif i == 3:
+            print("the total number of distinct trigrams of words that appear is: ", len_ngrams)
+        else:
+            print("the total number of distinct", i, "-grams of words that appear is: ", len_ngrams)
+
+
+def count_ngrams_chars(start,end, x):
+    for i in range(start, end):
+        l_ngrams_char = []
+        for s in x:
+            s = s.lower()
+            s = re.sub(r'[^a-zA-Z0-9\s]', ' ', s)
+            for q in x:
+                l_ngrams_char = l_ngrams_char + [q[p:p+i] for p in range(len(q)-i+1)]
+            len_ngrams_char  = len(collections.Counter(set(l_ngrams_char)))
+        if i == 2:
+            print("the total number of distinct bigrams of characters that appear is: ", len_ngrams_char)
+        elif i == 3:
+            print("the total number of distinct trigrams of characters that appear is: ", len_ngrams_char)
+        else:
+            print("the total number of distinct", i, "-grams of characters that appear is: ", len_ngrams_char)
 
 
 def main():
@@ -157,6 +193,23 @@ def main():
 
     # Number of Token / Number of Vocab
     print("The token/type ratio in the dataset is ", tweets_df['token count'].sum(axis=0) / len(word_counts))
+
+    # Count the total number of distinct n-grams of words
+    count_ngrams_words(2, 6, tweets_df['clean_text'])
+
+    # Count the total number of distinct n-grams of characters
+    count_ngrams_chars(2, 8, tweets_df['clean_text'])
+
+    # Plot a token log frequency
+    Y = words_in_tweet.values()
+    Y = sorted(Y, reverse=True)
+    X = range(len(Y))
+    plt.figure()
+    plt.loglog(X, Y)
+    plt.xlabel('Rank')
+    plt.ylabel('Frequency')
+    plt.grid()
+    plt.show()
 
     # Write the data frame to csv for further reference
     tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True, encoding='utf-8')
