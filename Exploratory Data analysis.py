@@ -122,12 +122,12 @@ def main():
 
     # Count the number of unique words appeared
     word_counts = collections.Counter(set(words))
-
     print("The total number of distinct words (vocabulary) is %s" % len(word_counts))
+
     print("The average number of characters per tweet is " +
           str(round(tweets_df['Character_Count'].mean(axis=0), 1)) +
           " and the average number of words per tweet is " +
-          str(round(tweets_df['Word_Count'].std(axis=0), 1)))
+          str(round(tweets_df['Word_Count'].mean(axis=0), 1)))
 
     # Count number of characters for each token for each tweet
     tweets_token_list = tweets_df['token'].tolist()
@@ -137,17 +137,18 @@ def main():
         for token in tokens:
             count += len(token)
         token_character_count.append(count)
+
     tweets_df['Token_Character_Count'] = token_character_count/tweets_df['token count']
 
     # Calculate Standard Deviation for each tweet's tokens
     token_character_average = tweets_df['Token_Character_Count'].mean(axis=0)
-    tweets_df['Token_Character_SD'] = tweets_df['Token_Character_Count'].std(axis=0)
+    tweets_df['Token_Character_SD'] = np.absolute(tweets_df['Token_Character_Count'] - token_character_average) ** 2
 
     # The average number and standard deviation of characters per token
     print("The average number of characters per token per tweet is " +
           str(round(token_character_average, 1)) +
           " and the average standard deviation per tweet's token is " +
-          str(round(sum(tweets_df['Token_Character_SD']) / len(tweets_df['Token_Character_SD']), 1)))
+          str(round(np.sqrt(tweets_df['Token_Character_SD'].mean(axis=0)), 1)))
 
     # Top 10 most frequent words (types) in the vocabulary
     top_10_words = collections.Counter(words).most_common(10)
