@@ -6,7 +6,6 @@ Dance Squard: Chelsea Wang, Jiaqi Tang, Xinyi Ye, Jingjing Lin
 In this Sentiment Analysis task, we aim to predict the affective states and subjective information (Positive, Neutral and Negative) of each twitter message using Naive Bayes and Logistic Regression models. 
 
 
-
 There are 3 parts in this project:
 
 1)Exploratory Data Analysis: conducting exploratory data analysis (EDA) of example("input") twitter messages; 
@@ -26,9 +25,10 @@ There are 3 parts in this project:
 + Data/Test - This is the (gold) data for evaluating your model. We will provide this data set the day your assignment is due, thus the folder is empty.
 
 ## Code Instruction
+There are two python files in this project
 
-
-
+ ### Exploratory Data analysis.py 
+ #####
 
 ## EDA
 
