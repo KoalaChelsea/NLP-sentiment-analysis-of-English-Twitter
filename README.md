@@ -1,6 +1,6 @@
 # NLP Sentiment Analysis of English Twitter
 ## Team
-Dance Squard: Chelsea Wang, Jiaqi Tang, Xinyi Ye, Jingjing Lin
+Dance Squad: Chelsea Wang, Jiaqi Tang, Xinyi Ye, Jingjing Lin
 
 ## Objective
 In this Sentiment Analysis task, we aim to predict the affective states and subjective information (Positive, Neutral and Negative) of each twitter message using Naive Bayes and Logistic Regression models. 
@@ -8,7 +8,7 @@ In this Sentiment Analysis task, we aim to predict the affective states and subj
 
 There are 3 parts in this project:
 
-1)Exploratory Data Analysis: conducting exploratory data analysis (EDA) of example("input") twitter messages; 
+1)Exploratory Data Analysis: conducting exploratory data analysis (EDA) of example("INPUT.txt") twitter messages; 
 
 2)Message polarity classification: training data with Naive Bayes Model and Logistic Regression Model and validating those two models using additional datasets;
 
