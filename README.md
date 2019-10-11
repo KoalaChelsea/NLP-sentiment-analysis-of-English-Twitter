@@ -27,12 +27,16 @@ There are 3 parts in this project:
 ## Code Instruction
 There are two python files in this project
 
- ### Exploratory Data analysis.py 
- #####
+ - Exploratory Data analysis.py, for part 1)
+ - XXXXXXXXXXXXXX, for part 2) and part 3)
+ 
+ And one output file for the results of the INPUT.txt file
+ 
+ - OUTPUT.csv (CHECK!!!!!!!!!) 
+ 
+ It takes around 40 minutes to run the entire project.
 
-## EDA
-
-### Task 1: Exploratory Data analysis
+## Task 1: Exploratory Data Analysis (EDA)
 
 #### Input data
 - [x] The total number of tweets
