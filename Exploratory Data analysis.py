@@ -9,7 +9,6 @@ from nltk.util import ngrams
 from nltk.stem import PorterStemmer
 from nltk.probability import FreqDist
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 
 # clean tweet to help with statistics
@@ -197,7 +196,7 @@ def main():
     # Count the total number of distinct n-grams of characters
     count_ngrams_chars(2, 8, tweets_list_cleaned)
     '''
-    
+
     # Generate freq dist
     freqdist = FreqDist(all_words)
 
