@@ -7,7 +7,9 @@ from nltk.corpus import stopwords
 import collections
 from nltk.util import ngrams
 from nltk.stem import PorterStemmer
+from nltk.probability import FreqDist
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 # clean tweet to help with statistics
@@ -194,19 +196,29 @@ def main():
 
     # Count the total number of distinct n-grams of characters
     count_ngrams_chars(2, 8, tweets_list_cleaned)
-    
-    words_in_tweet = [tweet.lower().split() for tweet in tweets_list_cleaned]
-    # Plot a token log frequency
-    Y = words_in_tweet.values()
-    Y = sorted(Y, reverse=True)
-    X = range(len(Y))
-    plt.figure()
-    plt.loglog(X, Y)
-    plt.xlabel('Rank')
-    plt.ylabel('Frequency')
-    plt.grid()
-    plt.show()
     '''
+    
+    # Generate freq dist
+    freqdist = FreqDist(all_words)
+
+    # Initialize two empty lists which will hold our ranks and frequencies
+    ranks = []
+    freqs = []
+
+    # Generate a (rank, frequency) point for each counted token and append to the respective lists
+    for rank, (word, count) in enumerate(freqdist.most_common()):
+        ranks.append(rank + 1)
+        freqs.append(count)
+
+    # Plot rank vs frequency on a log−log plot and show the plot
+    plt.loglog(ranks, freqs)
+    plt.title('Token Log Frequency')
+    plt.xlabel('frequency')
+    plt.ylabel('rank')
+    plt.grid(True)
+    plt.show()
+    plt.close()
+
 
 if __name__ == '__main__':
     main()
