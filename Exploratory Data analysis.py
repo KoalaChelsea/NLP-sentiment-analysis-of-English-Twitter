@@ -4,9 +4,9 @@ import re
 import string
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
-import itertools
 import collections
 from nltk.util import ngrams
+from nltk.stem import PorterStemmer
 import matplotlib.pyplot as plt
 
 
@@ -42,11 +42,6 @@ def processTweet(tweet):
     tweet = emoji_pattern.sub(r'', tweet)
 
     return tweet
-
-
-# Check if a string has a number
-def hasNumbers(inputString):
-    return any(char.isdigit() for char in inputString)
 
 
 def count_ngrams_words(start, end, x): # start = 2, end = 6, x = tweets_df['clean_text']
@@ -114,8 +109,23 @@ def main():
 
     # clean dataframe text column
     tweets_df['clean_text'] = tweets_df['tweet_content'].apply(processTweet)
-    tweets_df['token'] = tweets_df['clean_text'].apply(TweetTokenizer().tokenize)
+    tweets_df['token'] = tweets_df['clean_text'].apply(TweetTokenizer().tokenize)\
+        .apply(lambda x: [item for item in x if item.isalpha()])
     tweets_df['token count'] = tweets_df['token'].apply(len)
+
+    # write all cleaned tweets into one text
+    token_list_cleaned = tweets_df['token'].tolist()
+
+    # split/tokenize all words
+    words_list_in_tweet = [token_list for token_list in token_list_cleaned]
+
+    # flatten the list to one massive string
+    all_words = [item.lower() for sublist in words_list_in_tweet for item in sublist]
+
+    # Count the number of unique words appeared
+    word_counts = collections.Counter(set(all_words))
+
+    print("The total number of distinct words (vocabulary) is %s" % len(word_counts))
 
     # write all cleaned tweets into one text
     tweets_list_cleaned = tweets_df['clean_text'].tolist()
@@ -139,32 +149,10 @@ def main():
     tweets_df['Character_Count'] = tweet_character_count
     tweets_df['Word_Count'] = tweet_word_count
 
-    # split/tokenize all words
-    words_in_tweet = [tweet.lower().split() for tweet in tweets_list_cleaned]
-    """
-    # flatten the list to one massive string
-    all_words = [item for sublist in words_in_tweet for item in sublist]
-
-    # remove all tokenized words with values
-    for word in all_words:
-        if hasNumbers(word):
-            all_words.remove(word)
-
-    # remove all tokenized words with punctuation
-    table = str.maketrans('', '', string.punctuation)
-    stripped = [w.translate(table) for w in all_words]
-    # remove remaining tokens that are not alphabetic
-    words = [word for word in stripped if word.isalpha()]
-
-    # Count the number of unique words appeared
-    word_counts = collections.Counter(set(words))
-    print("The total number of distinct words (vocabulary) is %s" % len(word_counts))
-
     print("The average number of characters per tweet is " +
           str(round(tweets_df['Character_Count'].mean(axis=0), 1)) +
           " and the average number of words per tweet is " +
           str(round(tweets_df['Word_Count'].mean(axis=0), 1)))
-
     # Count number of characters for each token for each tweet
     tweets_token_list = tweets_df['token'].tolist()
     token_character_count = []
@@ -173,13 +161,10 @@ def main():
         for token in tokens:
             count += len(token)
         token_character_count.append(count)
-
-    tweets_df['Token_Character_Count'] = token_character_count/tweets_df['token count']
-
+    tweets_df['Token_Character_Count'] = token_character_count / tweets_df['token count']
     # Calculate Standard Deviation for each tweet's tokens
     token_character_average = tweets_df['Token_Character_Count'].mean(axis=0)
     tweets_df['Token_Character_SD'] = np.absolute(tweets_df['Token_Character_Count'] - token_character_average) ** 2
-
     # The average number and standard deviation of characters per token
     print("The average number of characters per token per tweet is " +
           str(round(token_character_average, 1)) +
@@ -187,20 +172,30 @@ def main():
           str(round(np.sqrt(tweets_df['Token_Character_SD'].mean(axis=0)), 1)))
 
     # Top 10 most frequent words (types) in the vocabulary
-    top_10_words = collections.Counter(words).most_common(10)
+    top_10_words = collections.Counter(all_words).most_common(10)
     print("The total number of tokens corresponding to the top 10 most frequent words (types) in the vocabulary is ",
           top_10_words)
 
     # Number of Token / Number of Vocab
     print("The token/type ratio in the dataset is ", tweets_df['token count'].sum(axis=0) / len(word_counts))
 
+    # after remove stopwords
+    stop = stopwords.words('english')
+    porter_stemmer = PorterStemmer()
+    tweets_df['token deep clean'] = tweets_df['token'].apply(lambda x: [item for item in x if item not in stop])\
+        .apply(lambda x: [porter_stemmer.stem(item) for item in x])
+
+    # Write the data frame to csv for further reference
+    tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True, encoding='utf-8')
+
+    '''
     # Count the total number of distinct n-grams of words
     count_ngrams_words(2, 6, tweets_df['clean_text'])
-    
+
     # Count the total number of distinct n-grams of characters
     count_ngrams_chars(2, 8, tweets_list_cleaned)
-    """
-
+    
+    words_in_tweet = [tweet.lower().split() for tweet in tweets_list_cleaned]
     # Plot a token log frequency
     Y = words_in_tweet.values()
     Y = sorted(Y, reverse=True)
@@ -211,10 +206,7 @@ def main():
     plt.ylabel('Frequency')
     plt.grid()
     plt.show()
-
-    # Write the data frame to csv for further reference
-    tweets_df.to_csv(r'data/tweets_input.csv', index=None, header=True, encoding='utf-8')
-
+    '''
 
 if __name__ == '__main__':
     main()
