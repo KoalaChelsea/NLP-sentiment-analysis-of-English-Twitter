@@ -19,8 +19,8 @@
 - [x] The average number and standard deviation of characters per token
 - [x] The total number of tokens corresponding to the top 10 most frequent words (types) in the vocabulary
 - [x] The token/type ratio in the dataset
-- [ ] The total number of distinct n-grams (of words) that appear in the dataset for n=2,3,4,5.
-- [ ] The total number of distinct n-grams of characters that appear for n=2,3,4,5,6,7
+- [x] The total number of distinct n-grams (of words) that appear in the dataset for n=2,3,4,5.
+- [x] The total number of distinct n-grams of characters that appear for n=2,3,4,5,6,7
 - [ ] Plot a token log frequency. Describe what this plot means and how to interpret it. Describe out it might help you understand coverage when training a model?
 
 #### Gold
