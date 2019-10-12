@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import re
 import string
+import nltk
+from nltk.collocations import *
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 import collections
@@ -85,9 +87,6 @@ def main():
     # create a data frame of tweet
     tweets_gold_df = pd.DataFrame(tweets_dict)
 
-    # report the number of tweet by checking the unique tweet id (no duplicated id found)
-    print("The total number of tweets in all gold files is %s" % len(tweets_gold_df.tweet_id.unique()))
-
     # -------------------------------------------------------------------------------------
     # clean dataframe text column
     tweets_gold_df['clean_text'] = tweets_gold_df['tweet_content'].apply(processTweet)
@@ -159,13 +158,13 @@ def main():
     print("The total number of distinct words (vocabulary) in input file is %s" % len(word_counts_input))
     # -------------------------------------------------------------------------------------
 
-    '''
     # -------------------------------------------------------------------------------------
+    # OOV between gold data sets and input data
     OOV = [x for x in set(all_words_input) if x not in set(all_words_gold)]
     print("The number of types that appear in the dev data but not the training data (OOV) are", len(set(OOV)))
     # -------------------------------------------------------------------------------------
-    '''
 
+    # -------------------------------------------------------------------------------------
     # create gold and input list for 25%, 50%, 75% and 100%
     gold_25 = token_list_cleaned_gold[:int((len(token_list_cleaned_gold) + 1) * .25)]
     gold_50 = token_list_cleaned_gold[:int((len(token_list_cleaned_gold) + 1) * .50)]
@@ -266,6 +265,24 @@ def main():
     plt.tight_layout()
     plt.show()
     plt.close()
+    # -------------------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------------------
+    # PMI picks up bigrams and trigrams that consist of words that should co-occur together.
+    bigrams = nltk.collocations.BigramAssocMeasures()
+    trigrams = nltk.collocations.TrigramAssocMeasures()
+    bigramFinder = nltk.collocations.BigramCollocationFinder.from_words(all_words_gold)
+    trigramFinder = nltk.collocations.TrigramCollocationFinder.from_words(all_words_gold)
+
+    # filter for only those with more than 20 occurences
+    bigramFinder.apply_freq_filter(20)
+    trigramFinder.apply_freq_filter(20)
+    bigramPMITable = pd.DataFrame(list(bigramFinder.score_ngrams(bigrams.pmi)),
+                                  columns=['bigram', 'PMI']).sort_values(by='PMI', ascending=False)
+    trigramPMITable = pd.DataFrame(list(trigramFinder.score_ngrams(trigrams.pmi)),
+                                   columns=['trigram', 'PMI']).sort_values(by='PMI', ascending=False)
+    print(bigramPMITable[:10])
+    print(trigramPMITable[:10])
     # -------------------------------------------------------------------------------------
 
 
