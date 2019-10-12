@@ -30,7 +30,13 @@ There are two python files in this project
  - Exploratory Data analysis.py, for part 1)
  - XXXXXXXXXXXXXX, for part 2) and part 3)
  
- And one output file for the results of the INPUT.txt file
+ Four graphs
+ - Token Frequency plot: Part1 EDA graph (!!!!!!!!)
+ - ClassDistribution.png: Part1 GOLD graph
+ - DifferenceClass.png: Part1 GOLD graph
+ - GrowthGraph.png: Part1 GOLD graph
+ 
+ One output file for the results of the INPUT.txt file
  
  - OUTPUT.csv (CHECK!!!!!!!!!) 
  
@@ -53,7 +59,6 @@ There are two python files in this project
 - [('the', 5733), ('to', 3792), ('a', 2954), ('of', 2594), ('and', 2461), ('in', 2267), ('is', 2251), ('for', 1945), ('i', 1744), ('on', 1396)]
 - [x] The token/type ratio in the dataset
 - 8.73203656462585
-
 - [x] The total number of distinct n-grams (of words) that appear in the dataset for n=2,3,4,5.
 - [x] The total number of distinct n-grams of characters that appear for n=2,3,4,5,6,7
 - [ ] Plot a token log frequency. Describe what this plot means and how to interpret it. Describe out it might help you understand coverage when training a model?
@@ -63,9 +68,9 @@ There are two python files in this project
 - [x] What is the number of types that appear in the dev data but not the training data (OOV).?
 - 8442
 - [x] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at difference sample sizes N. 
-- ![Growth graphs](GrowthGraph.png)
+![Growth graphs](GrowthGraph.png)
 - [x] What is the class distribution of the training data set - how many negative, neutral, positive tweets?
-- ![Class distribution](ClassDistribution.png)
+![Class distribution](ClassDistribution.png)
 - [x] Look at the difference between the top word types across these three classes.
-- ![Difference classes](DifferenceClass.png)
+![Difference classes](DifferenceClass.png)
 - [ ] What words are particularly characteristic of your training set and dev set? Are they the same? 
