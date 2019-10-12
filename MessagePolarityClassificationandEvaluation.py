@@ -161,7 +161,7 @@ def features(sentence):
     return dict(('contains(%s)' % w, True) for w in words)
 
 
-##logistic regression
+# Logistic regression
 def Logreg(df_train, df_dev):
     df_train['clean_text'] = df_train['clean_text'].apply(lambda x: stem_stop(x))
     df_dev['clean_text'] = df_dev['clean_text'].apply(lambda x: stem_stop(x))
@@ -178,7 +178,7 @@ def Logreg(df_train, df_dev):
     X_test = ngram_vectorizer.transform(df_dev['clean_text'])
 
     y_test = datatest['tweet_sentiment']
-    ##find the best parameter: cf
+    # find the best parameter: cf
     cf = 0
     accutemp = 0
     for c in [0.01, 0.05, 0.25, 0.3, 0.5, 1]:
@@ -190,7 +190,7 @@ def Logreg(df_train, df_dev):
             cf = c
     lr = LogisticRegression(multi_class='multinomial', solver='newton-cg', C=cf)
     lr.fit(X_train, y_train)
-    print(accuracy_score(y_test, y_pred))
+    print('Accuracy of Logistic regression is ', accuracy_score(y_test, y_pred))
     f1 = f1_score(y_test, y_pred, average=None)
     recall = recall_score(y_test, y_pred, average=None)
     precision = precision_score(y_test, y_pred, average=None)
