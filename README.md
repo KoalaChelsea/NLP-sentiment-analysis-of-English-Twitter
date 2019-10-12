@@ -206,15 +206,15 @@ Precision (positive) |0.45806883
 
 - Speculate on the differences between the two performance measures above.
 
-  - There are some differences between the f1 and recall, for example, when we perform navie bayes we can see that for negative label，f1 scores is higher than recall, however,for postive label, recall is higher, however, generally, the trends of f1 scores and recall scores for classes are  similar since both of them are used to measure accuracy of each classes.
+  - There are some differences between the f1 and recall, for example, when we perform navie bayes we can see that for negative label，f1 scores is higher than recall, however,for postive label, recall is higher, however, generally, the trends of f1 scores and recall scores for classes are similar since both of them are used to measure accuracy of each classes.
 
 - Look at your results and find / show examples where your classifiers have mis-performed. What sorts of phenomena do you see and speculate on why you see these errors. Are there distinct differences between classifiers or are differences difficult to see from your results?
 
-  - After preprocessing , there are only few words in some tweets so that it is got mis performed since information loss. there are no distinct differences between classifier that can be seen from the result.
+  - After preprocessing, there are only few words in some tweets so that it is got mis performed since information loss. there are no distinct differences between classifier that can be seen from the result.
  
   
 - How important was tokenization / feature extraction?
-  - Without tokenize,we only have a cloumn of string text ,then it will only have one feature, in this case, we used tokenize to generate features for better prediction and create more dimensions.
+  - Without tokenize, we only have a cloumn of string text ,then it will only have one feature, in this case, we used tokenize to generate features for better prediction and create more dimensions.
 
 
 - If you had more time, what might you do differently? What questions do you know have about your analysis that you didn't have before starting?
