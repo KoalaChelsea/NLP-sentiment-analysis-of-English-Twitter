@@ -185,7 +185,7 @@ Precision (neutral)|0.43083573
 Precision (positive) |0.60098928
 
 
-As we could see from the result, the Logistic Regression Model has a better perfomance. After applying to the final test data, the resulyts are below:
+As we could see from the result, the Logistic Regression Model has a better perfomance. After applying to the final test data, the final results are below:
 
 
 Name | Rate
