@@ -131,6 +131,9 @@ index |   trigram    |   PMI
 9  |        (ohio, gov, john) | 21.018691
 
 
+We can see that PMI picks up bigrams and trigrams that consist of words that should co-occur together.
+
+
 
 
 ### Task 2: Message Polarity 
