@@ -29,12 +29,12 @@ There are two python files in this project
 
  - Exploratory Data analysis.py, for part 1) eda
  - Gold EDA.py, for part 1) gold
- - MessagePolarityClassificationandEvaluation.ipynb, for part 2) and part 3)
+ - MessagePolarityClassificationandEvaluation.py, for part 2) and part 3)
  
  Four graphs
  - tokenLogFrequency.png: Part1 input data EDA graph
  - ClassDistribution1.png: Part1 GOLD graph
- - DifferenceClass.png: Part1 GOLD graph
+ - DifferenceClass1.png: Part1 GOLD graph
  - GrowthGraph.png: Part1 GOLD graph
  
  One output file for the results of the INPUT.txt file
@@ -47,7 +47,7 @@ There are two python files in this project
 
 #### Input data
 - [x] The total number of tweets
-- 18816
+- 12284
 - [x] The total number of characters
 - 1343152
 - [x] The total number of distinct words (vocabulary)
@@ -95,7 +95,7 @@ There are two python files in this project
 
 - [x] Look at the difference between the top word types across these three classes.
 
-![Difference classes](DifferenceClass.png)
+![Difference classes](DifferenceClass1.png)
 
 - [x] What words are particularly characteristic of your training set and dev set? Are they the same? 
 
@@ -139,9 +139,41 @@ We can see that PMI picks up bigrams and trigrams that consist of words that sho
 ### Task 2: Message Polarity 
 
 - Model Choosing
-- 
+  - Based on the EDA and our evaluation, we chose two models (Naive Bayes and Logistic Regression) to train our data.
+  
+- Preprocess
+  - We performed the basic data cleaning process such as remove the stop words, url and emoji. For the tokenization part, at first, we used the stemming to perform tokenization, the accuracy of the Logistic Regression Model is around 0.50. For achieving a better result,  we tried the lemmatization however the accuracy did not increase.
+  
+- Features extraction and implementation decisions description 
+  - 
 
 
 ### Task 3: Performance evaluation
+
+- Create a results table that compares performance of the algorithms you chose for analysis. 
+
+Evaluating NaiveBayesClassifier results
+
+Name | Rate
+------ |------------ 
+Accuracy | 0.5015 
+Precision (neutral)|0.4350132625994695
+Recall (neutral) | 0.24082232011747431 
+F-measure (neutral) |0.31001890359168244 
+Precision )positive)|0.6670092497430626
+Recall (positive)|0.6529175050301811
+F-measure (positive) |0.6598881545500762
+Precision (negative)|0.2923076923076923
+Recall (negative)|0.5846153846153846
+F-measure (negative) |0.38974358974358975
+
+
+
+
+
+- Speculate on the differences between the two performance measures above.
+- Look at your results and find / show examples where your classifiers have mis-performed. What sorts of phenomena do you see and speculate on why you see these errors. Are there distinct differences between classifiers or are differences difficult to see from your results?
+- How important was tokenization / feature extraction?
+- If you had more time, what might you do differently? What questions do you know have about your analysis that you didn't have before starting?
 
 
