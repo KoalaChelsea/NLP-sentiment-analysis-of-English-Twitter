@@ -39,7 +39,7 @@ There are two python files in this project
  
  One output file for the results of the INPUT.txt file
  
- - INPUT.csv 
+ - data/Dev/Output.csv
  
  It takes around 40 minutes to run the entire project.
 
