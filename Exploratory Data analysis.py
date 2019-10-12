@@ -180,7 +180,7 @@ def main():
     # Number of Token / Number of Vocab
     print("The token/type ratio in the dataset is ", tweets_df['token count'].sum(axis=0) / len(word_counts))
 
-    # after remove stopwords
+    # after remove stopwords and stemmer
     stop = stopwords.words('english')
     porter_stemmer = PorterStemmer()
     tweets_df['token deep clean'] = tweets_df['token'].apply(lambda x: [item for item in x if item not in stop])\
