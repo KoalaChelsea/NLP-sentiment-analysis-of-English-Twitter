@@ -145,7 +145,8 @@ We can see that PMI picks up bigrams and trigrams that consist of words that sho
   - We performed the basic data cleaning process such as remove the stop words, url and emoji. For the tokenization part, at first, we used the stemming to perform tokenization, the accuracy of the Logistic Regression Model is around 0.50. For achieving a better result,  we tried the lemmatization however the accuracy did not increase.
   
 - Features extraction and implementation decisions description 
-  - 
+  - After preprocessing , there are only few words in some tweets so that it is got mis performed since information loss.
+  there are no distinct differences between classifier that can be seen from the result
 
 
 ### Task 3: Performance evaluation
@@ -160,12 +161,47 @@ Accuracy | 0.5015
 Precision (neutral)|0.4350132625994695
 Recall (neutral) | 0.24082232011747431 
 F-measure (neutral) |0.31001890359168244 
-Precision )positive)|0.6670092497430626
+Precision (positive)|0.6670092497430626
 Recall (positive)|0.6529175050301811
 F-measure (positive) |0.6598881545500762
 Precision (negative)|0.2923076923076923
 Recall (negative)|0.5846153846153846
 F-measure (negative) |0.38974358974358975
+
+
+Evaluating Logistic Regression results
+
+Name | Rate
+------ |------------ 
+Accuracy | 0.5355 
+f1 scores (negative)|0.20574163
+f1 scores (neutral) | 0.43490909
+f1 scores (postive) |0.66062528
+Recall  (negative)|0.13230769
+Recall (neutral)|0.43906021
+Recall (positive) |0.7334004
+Precision (negative)|0.46236559
+Precision (neutral)|0.43083573 
+Precision (positive) |0.60098928
+
+
+As we could see from the result, the Logistic Regression Model has a better perfomance. After applying to the final test data, the resulyts are below:
+
+
+Name | Rate
+------ |------------ 
+Accuracy | 0.5138619620007755
+f1 scores (negative)|0.22773231
+f1 scores (neutral) | 0.51385585
+f1 scores (postive) |0.57632284
+Recall  (negative)|0.14639431
+Recall (neutral)|0.44913943
+Recall (positive) |0.77688058
+Precision (negative)|0.51245937 
+Precision (neutral)|0.6003619
+Precision (positive) |0.45806883
+
+
 
 
 
