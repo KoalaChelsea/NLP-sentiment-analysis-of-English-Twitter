@@ -146,7 +146,7 @@ We can see that PMI picks up bigrams and trigrams that consist of words that sho
   - We performed the basic data cleaning process such as remove the stop words, url and emoji. For the tokenization part, at first, we used the stemming to perform tokenization, the accuracy of the Logistic Regression Model is around 0.50. For achieving a better result,  we tried the lemmatization however the accuracy did not increase.
   
 - Features extraction and implementation decisions description 
-  - Check the code
+  - Since the based on f1 scores,recall, precision, logistic regression attains higher scores than navie bayes, also in this project, we used tunning methods for change the parameter for  logistic regression. So after feature extraction, we choose logistic regression. In additon, for feature selection, we removed high frequency and rare frequency words for better prediciton modeling, we use stem and lemmatize, remove stop words tokenized method for feature generation and selection.
 
 
 ### Task 3: Performance evaluation
@@ -214,7 +214,7 @@ Precision (positive) |0.45806883
  
   
 - How important was tokenization / feature extraction?
-  - without tokenize，we only have a cloumn of string text ,then it will only have one feature, in this case, we used tokenize to generate features for better prediction and create more dimensions.
+  - Without tokenize,we only have a cloumn of string text ,then it will only have one feature, in this case, we used tokenize to generate features for better prediction and create more dimensions.
 
 
 - If you had more time, what might you do differently? What questions do you know have about your analysis that you didn't have before starting?
