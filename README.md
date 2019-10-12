@@ -33,7 +33,7 @@ There are two python files in this project
  
  Four graphs
  - tokenLogFrequency.png: Part1 input data EDA graph
- - ClassDistribution.png: Part1 GOLD graph
+ - ClassDistribution1.png: Part1 GOLD graph
  - DifferenceClass.png: Part1 GOLD graph
  - GrowthGraph.png: Part1 GOLD graph
  
@@ -85,15 +85,15 @@ There are two python files in this project
 - [x] What is the number of types that appear in the dev data but not the training data (OOV).?
 - 8442
 
-- [x] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at difference sample sizes N.\
+- [x] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at difference sample sizes N.
 
 ![Growth graphs](GrowthGraph.png)
 
-- [x] What is the class distribution of the training data set - how many negative, neutral, positive tweets?\
+- [x] What is the class distribution of the training data set - how many negative, neutral, positive tweets?
 
-![Class distribution](ClassDistribution.png)
+![Class distribution](ClassDistribution1.png)
 
-- [x] Look at the difference between the top word types across these three classes.\
+- [x] Look at the difference between the top word types across these three classes.
 
 ![Difference classes](DifferenceClass.png)
 
