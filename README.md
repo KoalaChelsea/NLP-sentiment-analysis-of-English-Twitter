@@ -100,6 +100,7 @@ There are two python files in this project
 - [x] What words are particularly characteristic of your training set and dev set? Are they the same? 
 
 The total number of distinct words (vocabulary) in all gold files is 28997
+
 The total number of distinct words (vocabulary) in input file is 18816
 
 
