@@ -27,11 +27,12 @@ There are 3 parts in this project:
 ## Code Instruction
 There are two python files in this project
 
- - Exploratory Data analysis.py, for part 1)
- - XXXXXXXXXXXXXX, for part 2) and part 3)
+ - Exploratory Data analysis.py, for part 1) eda
+ - Gold EDA.py, for part 1) gold
+ - MessagePolarityClassificationandEvaluation.ipynb, for part 2) and part 3)
  
  Four graphs
- - Token Frequency plot: Part1 EDA graph (!!!!!!!!)
+ - tokenLogFrequency.png: Part1 input data EDA graph
  - ClassDistribution.png: Part1 GOLD graph
  - DifferenceClass.png: Part1 GOLD graph
  - GrowthGraph.png: Part1 GOLD graph
@@ -60,17 +61,84 @@ There are two python files in this project
 - [x] The token/type ratio in the dataset
 - 8.73203656462585
 - [x] The total number of distinct n-grams (of words) that appear in the dataset for n=2,3,4,5.
+- The total number of distinct bigrams of words that appear is:  103027
+- The total number of distinct trigrams of words that appear is:  138368
+- The total number of distinct 4 -grams of words that appear is:  137568
+- The total number of distinct 5 -grams of words that appear is:  128038
+
 - [x] The total number of distinct n-grams of characters that appear for n=2,3,4,5,6,7
-- [ ] Plot a token log frequency. Describe what this plot means and how to interpret it. Describe out it might help you understand coverage when training a model?
+- The total number of distinct bigrams of characters that appear is:  4055
+- The total number of distinct trigrams of characters that appear is:  30172
+- The total number of distinct 4 -grams of characters that appear is:  102907
+- The total number of distinct 5 -grams of characters that appear is:  224453
+- The total number of distinct 6 -grams of characters that appear is:  364633
+- The total number of distinct 7 -grams of characters that appear is:  493514
+
+- [x] Plot a token log frequency. Describe what this plot means and how to interpret it. Describe out it might help you understand coverage when training a model?
+
+![Toekn Log Frequency](tokenLogFrequency.png)
+
+- It means the product of frequency  and rank is constant. It is an observation of Zipf's Law, which desribes the word behaviour in an entire corpus and can be regarded as a roughly accurate characterization of certain empirical facts. That is, the frequency of words multiplied by their ranks in a large corpus is approximately constant.
 
 
 #### Gold
 - [x] What is the number of types that appear in the dev data but not the training data (OOV).?
 - 8442
-- [x] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at difference sample sizes N. 
+
+- [x] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at difference sample sizes N.\
+
 ![Growth graphs](GrowthGraph.png)
-- [x] What is the class distribution of the training data set - how many negative, neutral, positive tweets?
+
+- [x] What is the class distribution of the training data set - how many negative, neutral, positive tweets?\
+
 ![Class distribution](ClassDistribution.png)
-- [x] Look at the difference between the top word types across these three classes.
+
+- [x] Look at the difference between the top word types across these three classes.\
+
 ![Difference classes](DifferenceClass.png)
-- [ ] What words are particularly characteristic of your training set and dev set? Are they the same? 
+
+- [x] What words are particularly characteristic of your training set and dev set? Are they the same? 
+
+The total number of distinct words (vocabulary) in all gold files is 28997
+The total number of distinct words (vocabulary) in input file is 18816
+
+
+index | Bigram | PMI
+------ |------------ | -------------
+0  | (milton, keynes)  | 14.289941
+1  |  (roman, reigns)  | 13.552976
+2  |  (bye, felicia)   | 13.330583
+3  |  (andre, berto)   | 13.126988
+4  | (jordan, spieth)  | 13.087312
+5  | (kenny, chesney)  | 12.989075
+6  |   (jon, stewart)  | 12.928285
+7  | (outta, compton)  |12.925058
+8  |(cate, blanchett)  | 12.833943
+9  | (trending, topic) | 12.833563
+
+
+index |   trigram    |   PMI
+------ |------------ | -------------
+0  |(straight, outta, compton)  |24.741068
+1  |        (magic, mike, xxl)  |24.134072
+2  |   (mtvstars, lady, gaga)  |22.615695
+3  |           (moto, g, gen)  |22.444829
+4  |   (vice, president, joe)  |22.055289
+5  |     (miss, usa, pageant)  |22.049870
+6  |        (zac, brown, band)  |22.049061
+7  |              (gt, gt, gt)  |21.234634
+8  |  (charlie, hebdo, attack)  |21.094493
+9  |        (ohio, gov, john) | 21.018691
+
+
+
+
+### Task 2: Message Polarity 
+
+- Model Choosing
+- 
+
+
+### Task 3: Performance evaluation
+
+
