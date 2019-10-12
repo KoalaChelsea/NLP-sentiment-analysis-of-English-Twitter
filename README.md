@@ -48,11 +48,11 @@ There are two python files in this project
 - [x] The token/type ratio in the dataset
 - [x] The total number of distinct n-grams (of words) that appear in the dataset for n=2,3,4,5.
 - [x] The total number of distinct n-grams of characters that appear for n=2,3,4,5,6,7
-- [ ] Plot a token log frequency. Describe what this plot means and how to interpret it. Describe out it might help you understand coverage when training a model?
+- [x] Plot a token log frequency. Describe what this plot means and how to interpret it. Describe out it might help you understand coverage when training a model?
 
 #### Gold
-- [ ] What is the number of types that appear in the dev data but not the training data (OOV).?
-- [ ] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at dif ference sample sizes N. 
-- [ ] What is the class distribution of the training data set - how many negative, neutral, positive tweets?
-- [ ] Look at the difference between the top word types across these three classes.
+- [x] What is the number of types that appear in the dev data but not the training data (OOV).?
+- [x] Look at the vocabulary growth (types) combining your four gold data sets against your input data. Plot vocabulary growth at dif ference sample sizes N. 
+- [x] What is the class distribution of the training data set - how many negative, neutral, positive tweets?
+- [x] Look at the difference between the top word types across these three classes.
 - [ ] What words are particularly characteristic of your training set and dev set? Are they the same? 
