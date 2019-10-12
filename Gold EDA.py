@@ -208,7 +208,7 @@ def main():
     tweets_gold_df['tweet_sentiment'].value_counts().plot(kind='bar', rot=0)
     plt.title('Class Distribution of the Gold Training Data Set')
     plt.xlabel('tweet_sentiment')
-    plt.xlabel('count')
+    plt.ylabel('count')
     plt.show()
     plt.close()
     # -------------------------------------------------------------------------------------
@@ -245,22 +245,22 @@ def main():
 
     plt.subplot(311)
     labels_neutral, values_neutral = zip(*collections.Counter(all_words_neutral).most_common(30))
-    plt.bar(labels_neutral, values_neutral, color='darkblue')
+    plt.bar(labels_neutral, values_neutral, color='yellow')
     plt.xticks(labels_neutral, rotation='vertical')
-    plt.ylabel('Neutral', rotation='horizontal')
+    plt.ylabel('Neutral', rotation='horizontal', labelpad=20)
     plt.title('Difference Between the Top Word Types Across These Three Classes')
 
     plt.subplot(312)
     labels_positive, values_positive = zip(*collections.Counter(all_words_positive).most_common(30))
-    plt.bar(labels_positive, values_positive, color='darkred')
+    plt.bar(labels_positive, values_positive, color='darkgreen')
     plt.xticks(labels_positive, rotation='vertical')
-    plt.ylabel('Positive', rotation='horizontal')
+    plt.ylabel('Positive', rotation='horizontal', labelpad=20)
 
     plt.subplot(313)
     labels_negative, values_negative = zip(*collections.Counter(all_words_negative).most_common(30))
-    plt.bar(labels_negative, values_negative, color='darkgreen')
+    plt.bar(labels_negative, values_negative, color='darkred')
     plt.xticks(labels_negative, rotation='vertical')
-    plt.ylabel('Negative', rotation='horizontal')
+    plt.ylabel('Negative', rotation='horizontal', labelpad=20)
 
     plt.tight_layout()
     plt.show()
