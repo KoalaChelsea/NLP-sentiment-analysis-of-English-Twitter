@@ -145,8 +145,7 @@ We can see that PMI picks up bigrams and trigrams that consist of words that sho
   - We performed the basic data cleaning process such as remove the stop words, url and emoji. For the tokenization part, at first, we used the stemming to perform tokenization, the accuracy of the Logistic Regression Model is around 0.50. For achieving a better result,  we tried the lemmatization however the accuracy did not increase.
   
 - Features extraction and implementation decisions description 
-  - After preprocessing , there are only few words in some tweets so that it is got mis performed since information loss.
-  there are no distinct differences between classifier that can be seen from the result
+  - Check the code
 
 
 ### Task 3: Performance evaluation
@@ -204,12 +203,18 @@ Precision (positive) |0.45806883
 
 
 
-
-
-
 - Speculate on the differences between the two performance measures above.
+
+  - There are some differences between the f1 and recall, for example, when we perform navie bayes we can see that for negative label，f1 scores is higher than recall, however,for postive label, recall is higher, however, generally, the trends of f1 scores and recall scores for classes are  similar since both of them are used to measure accuracy of each classes
+
 - Look at your results and find / show examples where your classifiers have mis-performed. What sorts of phenomena do you see and speculate on why you see these errors. Are there distinct differences between classifiers or are differences difficult to see from your results?
+
+  -After preprocessing , there are only few words in some tweets so that it is got mis performed since information loss. there are no distinct differences between classifier that can be seen from the result
+ 
+  
 - How important was tokenization / feature extraction?
+
+
 - If you had more time, what might you do differently? What questions do you know have about your analysis that you didn't have before starting?
 
 
