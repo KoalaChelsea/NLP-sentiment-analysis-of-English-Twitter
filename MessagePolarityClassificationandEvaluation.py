@@ -16,6 +16,8 @@ import string
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet
 from nltk.stem import SnowballStemmer
+import nltk
+nltk.download('wordnet')
 
 stop_words = stopwords.words("english")
 stemmer = SnowballStemmer("english")
@@ -267,8 +269,8 @@ def main():
     # Converting lists of tuples into
     # pandas Dataframe.
     df = pd.DataFrame(list_of_tuples, columns=['ID', 'label'])
-    df.to_csv("data/Dev/Output.csv")
-
+    #df.to_csv("data/Dev/Output.csv")
+    df.to_csv("data/Dev/Output.txt", header=False, index=False, sep='\t')
 
 if __name__ == '__main__':
     main()
