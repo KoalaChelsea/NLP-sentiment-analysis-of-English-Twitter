@@ -269,10 +269,27 @@ def main():
 
     # -------------------------------------------------------------------------------------
     # PMI picks up bigrams and trigrams that consist of words that should co-occur together.
+    # Gold
     bigrams = nltk.collocations.BigramAssocMeasures()
     trigrams = nltk.collocations.TrigramAssocMeasures()
     bigramFinder = nltk.collocations.BigramCollocationFinder.from_words(all_words_gold)
     trigramFinder = nltk.collocations.TrigramCollocationFinder.from_words(all_words_gold)
+
+    # filter for only those with more than 20 occurences
+    bigramFinder.apply_freq_filter(20)
+    trigramFinder.apply_freq_filter(20)
+    bigramPMITable = pd.DataFrame(list(bigramFinder.score_ngrams(bigrams.pmi)),
+                                  columns=['bigram', 'PMI']).sort_values(by='PMI', ascending=False)
+    trigramPMITable = pd.DataFrame(list(trigramFinder.score_ngrams(trigrams.pmi)),
+                                   columns=['trigram', 'PMI']).sort_values(by='PMI', ascending=False)
+    print(bigramPMITable[:10])
+    print(trigramPMITable[:10])
+
+    # Input
+    bigrams = nltk.collocations.BigramAssocMeasures()
+    trigrams = nltk.collocations.TrigramAssocMeasures()
+    bigramFinder = nltk.collocations.BigramCollocationFinder.from_words(all_words_input)
+    trigramFinder = nltk.collocations.TrigramCollocationFinder.from_words(all_words_input)
 
     # filter for only those with more than 20 occurences
     bigramFinder.apply_freq_filter(20)
