@@ -135,6 +135,37 @@ index |   trigram    |   PMI
 We can see that PMI picks up bigrams and trigrams that consist of words that should co-occur together.
 
 
+The following lists are the result from Input file。
+
+Index  |   Bigram     | PMI         
+------ | ------------ | -------------
+0   |      (kate, upton)  | 12.618004
+1   |    (self, driving)  | 11.720269
+2   | (spurs, gospursgo)  | 11.707271
+3   |    (ricky, martin)  | 11.374706
+4   |     (mike, pence)   | 11.262296
+5   |      (jill, stein)  | 11.249175
+6   |     (north, korea)  | 10.933673
+7   |   (ashley, graham)  | 10.856624
+8   | (justin, verlander) | 10.830033
+9   |   (dakota, access)  | 10.822165
+
+
+
+Index  | trigram | PMI
+------ | ------------ | -------------
+0      | (self, driving, cars)    | 22.338273
+1      |(dakota, access, pipeline)| 21.807926
+2      |    (marine, le, pen)     | 21.302147
+3      |  (samsung, galaxy, note) | 20.523181
+4      |    (google, earth, vr)   | 20.345037
+5      | (palestine, israel, bds) | 20.275346
+6      |         (kim, jong, un)  | 19.951652
+7      | (gaza, palestine, israel)| 19.739293
+8      |      (tesla, model, s)   | 18.333268
+9      |      (liked, a, video)   | 15.777752
+
+
 
 
 ### Task 2: Message Polarity 
